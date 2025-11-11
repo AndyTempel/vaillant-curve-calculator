@@ -1,8 +1,9 @@
 {
-  "name": "next-netlify-platform-starter",
-  "version": "0.1.0",
+  "name": "vaillant-curve-calculator",
+  "version": "1.0.0",
   "type": "module",
   "private": true,
+  "description": "Simple calculator and graph of Vaillant heat curve.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,14 +11,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@netlify/blobs": "^10.3.3",
-    "blobshape": "^1.0.0",
-    "bright": "^1.0.0",
-    "markdown-to-jsx": "^7.7.16",
+    "chart.js": "^4.4.4",
+    "react-chartjs-2": "^5.2.0",
     "next": "^16.0.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "unique-names-generator": "^4.7.1"
+    "react-dom": "19.2.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.15",
@@ -25,5 +23,11 @@
     "eslint-config-next": "16.0.0-beta.0",
     "postcss": "^8.4.36",
     "tailwindcss": "^4.1.15"
+  },
+  "license": "MIT",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": ""
   }
 }

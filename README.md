@@ -1,43 +1,63 @@
-# Next.js on Netlify Platform Starter
+# Vaillant Heat Curve Calculator
 
-[Live Demo](https://nextjs-platform-starter.netlify.app/)
+A simple, clean calculator and graph for the Vaillant heating curve.
 
-A modern starter based on Next.js 16 (App Router), Tailwind, and [Netlify Core Primitives](https://docs.netlify.com/core/overview/#develop) (Edge Functions, Image CDN, Blob Store).
-
-In this site, Netlify Core Primitives are used both implictly for running Next.js features (e.g. Route Handlers, image optimization via `next/image`, and more) and also explicitly by the user code.
-
-Implicit usage means you're using any Next.js functionality and everything "just works" when deployed - all the plumbing is done for you. Explicit usage is framework-agnostic and typically provides more features than what Next.js exposes.
-
-## Deploying to Netlify
-
-Click the button below to deploy this template to your Netlify account.
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/next-platform-starter)
-
-## Developing Locally
-
-1. Clone this repository, then run `npm install` in its root directory.
-
-2. For the starter to have full functionality locally (e.g. edge functions, blob store), please ensure you have an up-to-date version of Netlify CLI. Run:
+## Formula
 
 ```
-npm install netlify-cli@latest -g
+T_flow = T_set + 2.55 * (HeatCurve * (T_set - T_out))^0.78
 ```
 
-3. Link your local repository to the deployed Netlify site. This will ensure you're using the same runtime version for both local development and your deployed site.
+- `T_flow` — flow temperature (°C)
+- `T_set` — target room temperature (°C)
+- `T_out` — outside temperature (°C)
+- `HeatCurve` — Vaillant heat curve label (0.10 → 4.00)
+- `a = 2.55`, `b = 0.78`
 
-```
-netlify link
-```
+## Features
 
-4. Then, run the Next.js development server via Netlify CLI:
+- Interactive controls:
+  - `T_set` target room temperature
+  - `HeatCurve` label (0.10 to 4.00 in 0.05 steps)
+- Graph:
+  - Uses Chart.js (via react-chartjs-2)
+  - X axis: inverted outside temperature from 25 → -25°C (rendered left→right as 25 → -25)
+  - Resolution: 1°C with visible points and hover tooltip showing precise values
+- Table:
+  - Setpoints for one curve below (−0.05), the selected curve, and one above (+0.05)
+  - Rows for `T_out`: 20, 15, 10, 0, −10, −15, −20
 
-```
-netlify dev
-```
+## Getting Started
 
-If your browser doesn't navigate to the site automatically, visit [localhost:8888](http://localhost:8888).
+### Local development
 
-## Resources
+1. Install dependencies:
+   ```
+   npm install
+   ```
+2. Start the dev server:
+   ```
+   npm run dev
+   ```
+3. Open http://localhost:3000
 
-- Check out the [Next.js on Netlify docs](https://docs.netlify.com/frameworks/next-js/overview/)
+### Deploying to Netlify
+
+This project works out-of-the-box on Netlify. A minimal `netlify.toml` is included.
+- Build command: `npm run build`
+- Publish directory: `.next`
+
+You can deploy by connecting your repository in the Netlify UI.
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- Tailwind CSS 4
+- Chart.js for charts
+
+## Notes
+
+- Inputs are clamped to the allowed bounds.
+- The graph auto-scales the Y axis; the X axis is fixed from 25 to −25°C and is reversed on the chart to display 25 → −25.
+- No starter/template pages or navigation remain — this repository focuses solely on the calculator.
